@@ -146,7 +146,7 @@ public abstract class Player extends Collision
         // Load walking images from disk
         for (int i = 0; i < punchingRightImages.length; i++)
         {
-            punchingRightImages[i] = new GreenfootImage(imageNamePrefix + "-punch-right-" + i + ".png");
+            punchingRightImages[i] = new GreenfootImage(imageNamePrefix + "-right-punch-" + i + ".png");
 
             // Create left-facing images by mirroring horizontally
             punchingLeftImages[i] = new GreenfootImage(punchingRightImages[i]);
@@ -157,7 +157,6 @@ public abstract class Player extends Collision
         punchingFrames = 0;
     }
 
-    
     /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -207,7 +206,7 @@ public abstract class Player extends Collision
             }
         }
     }
-    
+
     /**
      * Make a player punch.
      */
