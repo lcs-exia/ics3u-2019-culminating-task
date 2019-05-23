@@ -195,7 +195,6 @@ public abstract class Player extends Collision
             // Standing still; reset walking animation
             walkingFrames = 0;
         }
-
         // Jumping
         if (Greenfoot.isKeyDown(jumpKey) && !isGameOver)
         {
@@ -240,13 +239,15 @@ public abstract class Player extends Collision
 
             // Check here for hit
             // (We have finished a punch and are touching another character)
-            if (this.touch(Player.class))
+            if (this.touch(Viga.class))
             {
                 world.showText("Scored a punch", 100, 100);
+                ((GameWorld)getWorld()).setHealthP1(10);
             }
-            else
+            else if (this.touch(Guile.class))
             {
                 world.showText("", 100, 100);
+                ((GameWorld)getWorld()).setHealthP2(10);
             }
 
             // Start animation loop from beginning

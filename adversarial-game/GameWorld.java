@@ -39,6 +39,10 @@ public class GameWorld extends World
 
     // Track whether game is on
     private boolean isGameOver;
+    
+    // Damage variable
+    private int healthP1;
+    private int healthP2;
 
     /**
      * Constructor for objects of class GameWorld.
@@ -55,6 +59,12 @@ public class GameWorld extends World
 
         // Game on
         isGameOver = false;
+        healthP1 = 100;
+        healthP2 = 100;
+        showHealthP1();
+        showHealthP2();
+        
+        
     }
 
     /**
@@ -180,6 +190,36 @@ public class GameWorld extends World
     public void setGameOver()
     {
         isGameOver = true;
+    }
+    /**
+     * show health of player 1
+     */
+    public void showHealthP1()
+    {
+        showText("Health:" + healthP1, 100, 50);
+    }
+    /**
+     * Track Damage of player 1
+     */
+    public void setHealthP1(int damageP1)
+    {
+        healthP1 = healthP1 - damageP1;
+        showHealthP1();
+    }
+    /**
+     * show health of player 2
+     */
+    public void showHealthP2()
+    {
+        showText("Health:" + healthP2, 500, 50);
+    }
+    /**
+     * Track Damage of player 1
+     */
+    public void setHealthP2(int damageP2)
+    {
+        healthP2 = healthP2 - damageP2;
+        showHealthP2();
     }
 }
 
