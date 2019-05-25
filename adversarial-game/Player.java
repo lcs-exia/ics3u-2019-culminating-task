@@ -44,6 +44,7 @@ public abstract class Player extends Collision
     private String moveRightKey;
     private String jumpKey;
     private String punchKey;
+    private String kickKey;
 
     // For walking animation
     private GreenfootImage walkingRightImages[];
@@ -60,13 +61,23 @@ public abstract class Player extends Collision
     private GreenfootImage punchingRightImages[];
     private GreenfootImage punchingLeftImages[];
     private static final int PUNCH_ANIMATION_DELAY = 8;
-
-    // Keeps track of total number of walking image frames (varies by character)
+    
+    // Keeps track of total number of punching image frames (varies by character)
     int countOfPunchingImages;
 
-    // Keeps track of what frame is currently being used in walking animation
+    // Keeps track of what frame is currently being used in punching animation
     private int punchingFrames;
-
+    
+    // For Kicking animation
+    private GreenfootImage kickingRightImages[];
+    private GreenfootImage kickingLeftImages[];
+    private static final int KICK_ANIMATION_DELAY = 8;
+    
+    // Keeps track of total number of kicking image frames (varies by character)
+    int countOfKickingImages;
+    // Keeps track of what frame is curently being used in kicking animation
+    private int kickingFrames;
+    
     // Name of player images
     private String imageNamePrefix;
 
@@ -76,7 +87,8 @@ public abstract class Player extends Collision
      * This runs once when the Player object is created.
      */
     Player(int startingX, String playerName, int walkingImagesCount, int punchingImagesCount,
-    String moveLeftWithKey, String moveRightWithKey, String jumpWithKey, String punchWithKey)
+    String moveLeftWithKey, String moveRightWithKey, String jumpWithKey, String punchWithKey
+    , String kickWithKey)
     {
         // Assign how many walking image frames there are
         countOfWalkingImages = walkingImagesCount;
@@ -89,6 +101,7 @@ public abstract class Player extends Collision
         moveRightKey = moveRightWithKey;
         jumpKey = jumpWithKey;
         punchKey = punchWithKey;
+        kickKey = kickWithKey;
 
         // Game on
         isGameOver = false;
