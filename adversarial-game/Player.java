@@ -56,7 +56,7 @@ public abstract class Player extends Collision
     // Keeps track of what frame is currently being used in walking animation
     private int walkingFrames;
 
-    // For walking animation
+    // For punching animation
     private GreenfootImage punchingRightImages[];
     private GreenfootImage punchingLeftImages[];
     private static final int PUNCH_ANIMATION_DELAY = 8;
@@ -242,12 +242,14 @@ public abstract class Player extends Collision
             if (this.touch(Viga.class))
             {
                 world.showText("Scored a punch", 100, 100);
-                ((GameWorld)getWorld()).setHealthP1(10);
+                // Deal Damage that is increasing the lower health you are
+                ((GameWorld)getWorld()).setHealthP1(10 + (100-((GameWorld)getWorld()).healthP2)/10);
             }
             else if (this.touch(Guile.class))
             {
                 world.showText("", 100, 100);
-                ((GameWorld)getWorld()).setHealthP2(10);
+                // Deal Damage that is increasing the lower health you are
+                ((GameWorld)getWorld()).setHealthP2(10 + (100-((GameWorld)getWorld()).healthP1)/10);
             }
 
             // Start animation loop from beginning

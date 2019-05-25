@@ -41,8 +41,8 @@ public class GameWorld extends World
     private boolean isGameOver;
     
     // Damage variable
-    private int healthP1;
-    private int healthP2;
+    public int healthP1;
+    public int healthP2;
 
     /**
      * Constructor for objects of class GameWorld.
@@ -205,6 +205,11 @@ public class GameWorld extends World
     {
         healthP1 = healthP1 - damageP1;
         showHealthP1();
+        if (healthP1 <= 0)
+        {
+            showText("Guile, WINS", VISIBLE_WIDTH / 2, VISIBLE_HEIGHT / 2);
+            Greenfoot.stop();
+        }
     }
     /**
      * show health of player 2
@@ -220,6 +225,12 @@ public class GameWorld extends World
     {
         healthP2 = healthP2 - damageP2;
         showHealthP2();
+        if (healthP2 <= 0)
+        {
+            showText("Viga, WINS", VISIBLE_WIDTH / 2, VISIBLE_HEIGHT / 2);
+            Greenfoot.stop();
+        }
+        
     }
 }
 
