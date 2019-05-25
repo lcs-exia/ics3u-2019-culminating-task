@@ -63,8 +63,6 @@ public class GameWorld extends World
         healthP2 = 100;
         showHealthP1();
         showHealthP2();
-        
-        
     }
 
     /**

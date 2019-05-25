@@ -24,7 +24,7 @@ public abstract class Player extends Collision
     private int acceleration = 2;
 
     // Strength of a jump
-    private int jumpStrength = -24;
+    private int jumpStrength = -12;
 
     // Track whether game is over or not
     private boolean isGameOver;
@@ -61,23 +61,24 @@ public abstract class Player extends Collision
     private GreenfootImage punchingRightImages[];
     private GreenfootImage punchingLeftImages[];
     private static final int PUNCH_ANIMATION_DELAY = 8;
-    
+
     // Keeps track of total number of punching image frames (varies by character)
     int countOfPunchingImages;
 
     // Keeps track of what frame is currently being used in punching animation
     private int punchingFrames;
-    
+
     // For Kicking animation
     private GreenfootImage kickingRightImages[];
     private GreenfootImage kickingLeftImages[];
     private static final int KICK_ANIMATION_DELAY = 8;
-    
+
     // Keeps track of total number of kicking image frames (varies by character)
     int countOfKickingImages;
+    
     // Keeps track of what frame is curently being used in kicking animation
     private int kickingFrames;
-    
+
     // Name of player images
     private String imageNamePrefix;
 
@@ -86,15 +87,18 @@ public abstract class Player extends Collision
      * 
      * This runs once when the Player object is created.
      */
-    Player(int startingX, String playerName, int walkingImagesCount, int punchingImagesCount,
-    String moveLeftWithKey, String moveRightWithKey, String jumpWithKey, String punchWithKey
-    , String kickWithKey)
+    Player(int startingX, String playerName, int walkingImagesCount, 
+    int punchingImagesCount, int kickingImagesCount, String moveLeftWithKey, String moveRightWithKey, 
+    String jumpWithKey, String punchWithKey, String kickWithKey)
     {
         // Assign how many walking image frames there are
         countOfWalkingImages = walkingImagesCount;
 
-        // Assign how many walking image frames there are
+        // Assign how many punching image frames there are
         countOfPunchingImages = punchingImagesCount;
+
+        // Assign how many kicking image frames there are
+        countOfKickingImages = kickingImagesCount;
 
         // Assign keystrokes that this object will respond to
         moveLeftKey = moveLeftWithKey;
@@ -122,6 +126,9 @@ public abstract class Player extends Collision
 
         // Get images ready for punching animation
         initializePunchingImages();
+        
+        // Get images ready for kicking animation
+        initializeKickingImages();
     }
 
     /**
@@ -171,6 +178,29 @@ public abstract class Player extends Collision
     }
 
     /**
+     * Get images ready to animate punching.
+     */
+    private void initializeKickingImages()
+    {
+        // Initialize the 'punching' arrays
+        kickingRightImages = new GreenfootImage[countOfKickingImages];
+        kickingLeftImages = new GreenfootImage[countOfKickingImages];
+
+        // Load walking images from disk
+        for (int i = 0; i < kickingRightImages.length; i++)
+        {
+            kickingRightImages[i] = new GreenfootImage(imageNamePrefix + "-right-kick-" + i + ".png");
+
+            // Create left-facing images by mirroring horizontally
+            kickingLeftImages[i] = new GreenfootImage(kickingRightImages[i]);
+            kickingLeftImages[i].mirrorHorizontally();
+        }
+
+        // Track animation frames for punching
+        kickingFrames = 0;
+    }
+
+    /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
@@ -202,6 +232,11 @@ public abstract class Player extends Collision
         {
             System.out.println("key received for punch");
             punch();
+        }
+        else if (Greenfoot.isKeyDown(kickKey) && !isGameOver)
+        {
+            System.out.println("key received for kick");
+            kick();
         }
         else
         {
@@ -267,6 +302,54 @@ public abstract class Player extends Collision
 
             // Start animation loop from beginning
             punchingFrames = 0;
+        }
+    }
+
+    private void kick()
+    {
+        // Track walking animation frames
+        kickingFrames += 1;
+
+        // Get current animation stage
+        int stage = kickingFrames / KICK_ANIMATION_DELAY;
+
+        // Animate
+        if (stage < kickingRightImages.length)
+        {
+            System.out.println("in kick method" + stage);
+            // Set image for this stage of the animation
+            if (horizontalDirection == FACING_RIGHT)
+            {
+                setImage(kickingRightImages[stage]);
+
+            }
+            else
+            {
+                setImage(kickingLeftImages[stage]);
+            }
+        }
+        else
+        {
+            // Get world reference
+            GameWorld world = (GameWorld)getWorld();
+
+            // Check here for hit
+            // (We have finished a kick and are touching another character)
+            if (this.touch(Viga.class))
+            {
+                world.showText("Scored a kick", 100, 100);
+                // Deal Damage that is increasing the lower health you are
+                ((GameWorld)getWorld()).setHealthP1(10 + (100-((GameWorld)getWorld()).healthP2)/10);
+            }
+            else if (this.touch(Guile.class))
+            {
+                world.showText("", 100, 100);
+                // Deal Damage that is increasing the lower health you are
+                ((GameWorld)getWorld()).setHealthP2(10 + (100-((GameWorld)getWorld()).healthP1)/10);
+            }
+
+            // Start animation loop from beginning
+            kickingFrames = 0;
         }
     }
 
