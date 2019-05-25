@@ -208,6 +208,8 @@ public class GameWorld extends World
         if (healthP1 <= 0)
         {
             showText("Guile, WINS", VISIBLE_WIDTH / 2, VISIBLE_HEIGHT / 2);
+            healthP1 = 0;
+            showHealthP1();
             Greenfoot.stop();
         }
     }
@@ -228,6 +230,8 @@ public class GameWorld extends World
         if (healthP2 <= 0)
         {
             showText("Viga, WINS", VISIBLE_WIDTH / 2, VISIBLE_HEIGHT / 2);
+            healthP2 = 0;
+            showHealthP2();
             Greenfoot.stop();
         }
         
