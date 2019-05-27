@@ -75,7 +75,7 @@ public abstract class Player extends Collision
 
     // Keeps track of total number of kicking image frames (varies by character)
     int countOfKickingImages;
-    
+
     // Keeps track of what frame is curently being used in kicking animation
     private int kickingFrames;
 
@@ -126,7 +126,7 @@ public abstract class Player extends Collision
 
         // Get images ready for punching animation
         initializePunchingImages();
-        
+
         // Get images ready for kicking animation
         initializeKickingImages();
     }
@@ -183,10 +183,11 @@ public abstract class Player extends Collision
     private void initializeKickingImages()
     {
         // Initialize the 'punching' arrays
+        System.out.println("countOfKickingImages is " + countOfKickingImages);
         kickingRightImages = new GreenfootImage[countOfKickingImages];
         kickingLeftImages = new GreenfootImage[countOfKickingImages];
 
-        // Load walking images from disk
+        // Load kicking images from disk
         for (int i = 0; i < kickingRightImages.length; i++)
         {
             kickingRightImages[i] = new GreenfootImage(imageNamePrefix + "-right-kick-" + i + ".png");

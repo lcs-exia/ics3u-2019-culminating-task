@@ -17,7 +17,7 @@ public class Viga extends Player
     Viga(int startingX, String moveLeftWithKey, String moveRightWithKey, String jumpWithKey, String punchWithKey, String kickWithKey)
     {
         // Invoke the superclass constructor
-        super(startingX, "viga", 2, 3, 4, moveLeftWithKey, moveRightWithKey, jumpWithKey, punchWithKey, kickWithKey);
+        super(startingX, "viga", 2, 3, 3, moveLeftWithKey, moveRightWithKey, jumpWithKey, punchWithKey, kickWithKey);
     }
 
     /**
