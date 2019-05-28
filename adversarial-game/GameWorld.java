@@ -181,6 +181,10 @@ public class GameWorld extends World
     {
         return playerOne;
     }
+    
+    public void setMusic()
+    {
+    }
 
     /**
      * Set game over

@@ -24,7 +24,7 @@ public abstract class Player extends Collision
     private int acceleration = 2;
 
     // Strength of a jump
-    private int jumpStrength = -12;
+    private int jumpStrength = -17;
 
     // Track whether game is over or not
     private boolean isGameOver;
@@ -79,29 +79,29 @@ public abstract class Player extends Collision
 
     // Keeps track of what frame is currently being used in kicking animation
     private int kickingFrames;
-    
+
     // For Blocking animation
     private GreenfootImage blockingRightImages[];
     private GreenfootImage blockingLeftImages[];
     private static final int BLOCK_ANIMATION_DELAY = 8;
-    
+
     // Keeps track of total number of blocking image frames (varies by character)
     int countOfBlockingImages;
-    
+
     // Keeps track of what frame is currently being used in blocking animation
     private int blockingFrames;
 
     // Name of player images
     private String imageNamePrefix;
-    
+
     // Boolean for if got punched or if got kicked for Player 1
     public boolean wasPlayerOneKicked;
     public boolean wasPlayerOnePunched;
-    
+
     // Boolean for if got punched or if got kicked for Player 2
     public boolean wasPlayerTwoKicked;
     public boolean wasPlayerTwoPunched;
-    
+
     /**
      * Constructor
      * 
@@ -119,7 +119,7 @@ public abstract class Player extends Collision
 
         // Assign how many kicking image frames there are
         countOfKickingImages = kickingImagesCount;
-        
+
         // Assign how many blocking image frames there are
         countOfBlockingImages = blockingImagesCount;
 
@@ -153,10 +153,10 @@ public abstract class Player extends Collision
 
         // Get images ready for kicking animation
         initializeKickingImages();
-        
+
         // Get images ready for blocking animation
         initializeBlockingImages();
-        
+
         // Set boolean
         wasPlayerOneKicked = false;
         wasPlayerOnePunched = false;
@@ -233,7 +233,7 @@ public abstract class Player extends Collision
         // Track animation frames for punching
         kickingFrames = 0;
     }
-    
+
     /**
      * Get images ready to animate kicking.
      */
@@ -247,7 +247,7 @@ public abstract class Player extends Collision
         // Load blocking images from disk
         for (int i = 0; i < blockingRightImages.length; i++)
         {
-            blockingRightImages[i] = new GreenfootImage(imageNamePrefix + "-right-block-" + i + ".png");
+            blockingRightImages[i] = new GreenfootImage(imageNamePrefix + "-right-block-0.png");
 
             // Create left-facing images by mirroring horizontally
             blockingLeftImages[i] = new GreenfootImage(blockingRightImages[i]);
@@ -424,7 +424,7 @@ public abstract class Player extends Collision
             kickingFrames = 0;
         }
     }
-    
+
     private void block()
     {
         // Track blocking animation frames
@@ -434,62 +434,53 @@ public abstract class Player extends Collision
         int stage = blockingFrames / BLOCK_ANIMATION_DELAY;
 
         // Animate
-        if (stage < blockingRightImages.length)
-        {
-            System.out.println("in block method" + stage);
-            // Set image for this stage of the animation
-            if (horizontalDirection == FACING_RIGHT)
-            {
-                setImage(blockingRightImages[stage]);
-            }
-            else
-            {
-                setImage(blockingLeftImages[stage]);
-            }
-        }
-        else
-        {
-            // Get world reference
-            GameWorld world = (GameWorld)getWorld();
 
-            // Check here for hit
-            // (We have finished a kick and are touching another character)
-            if (this.touch(Viga.class) && wasPlayerTwoKicked == true)
-            {
-                world.showText("blocked", 100, 100);
-                // Deal less damage than usual
-                ((GameWorld)getWorld()).setHealthP2(-8);
-                // Set boolean back to false
-                wasPlayerTwoKicked = false;
-            }
-            else if (this.touch(Guile.class) && wasPlayerOneKicked == true)
-            {
-                world.showText("", 100, 100);
-                // Deal less damage than usual
-                ((GameWorld)getWorld()).setHealthP1(-8);
-                // Set boolean back to false
-                wasPlayerOneKicked = false;
-            } 
-            else if (this.touch(Viga.class) && wasPlayerTwoPunched == true)
-            {
-                world.showText("", 100, 100);
-                // Deal less damage than usual
-                ((GameWorld)getWorld()).setHealthP1(-8);
-                // Set boolean back to false
-                wasPlayerTwoPunched = false;
-            }
-            else if (this.touch(Guile.class) && wasPlayerOnePunched == true)
-            {
-                world.showText("", 100, 100);
-                // Deal less damage than usual
-                ((GameWorld)getWorld()).setHealthP1(-8);
-                // Set boolean back to false
-                wasPlayerOnePunched = false;
-            }
-
-            // Start animation loop from beginning
-            blockingFrames = 0;
+        if (horizontalDirection == FACING_RIGHT)
+        {
+            setImage(imageNamePrefix + "-right-block-0.png");
         }
+        else if (horizontalDirection == FACING_LEFT)
+        {
+            setImage(imageNamePrefix + "-left-block-0.png");
+        }
+
+        if (this.touch(Viga.class) && wasPlayerTwoKicked == true)
+        {
+            //world.showText("blocked", 100, 100);
+            // Deal less damage than usual
+            ((GameWorld)getWorld()).setHealthP2(-8);
+            // Set boolean back to false
+            wasPlayerTwoKicked = false;
+        }
+        else if (this.touch(Guile.class) && wasPlayerOneKicked == true)
+        {
+            //world.showText("", 100, 100);
+            // Deal less damage than usual
+            ((GameWorld)getWorld()).setHealthP1(-8);
+            // Set boolean back to false
+            wasPlayerOneKicked = false;
+        } 
+        else if (this.touch(Viga.class) && wasPlayerTwoPunched == true)
+        {
+            //world.showText("", 100, 100);
+            // Deal less damage than usual
+            ((GameWorld)getWorld()).setHealthP1(-8);
+            // Set boolean back to false
+            wasPlayerTwoPunched = false;
+        }
+        else if (this.touch(Guile.class) && wasPlayerOnePunched == true)
+        {
+            //showText("", 100, 100);
+            // Deal less damage than usual
+            ((GameWorld)getWorld()).setHealthP1(-8);
+            // Set boolean back to false
+            wasPlayerOnePunched = false;
+        }
+
+        // Start animation loop from beginning
+
+        blockingFrames = 0;
+
     }
 
     /**
