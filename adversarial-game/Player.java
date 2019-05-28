@@ -733,7 +733,6 @@ public abstract class Player extends Collision
         {
             // Remove the player
             isGameOver = true;
-            world.setGameOver();
             world.removeObject(this);
 
             // Tell the user game is over

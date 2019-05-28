@@ -63,6 +63,7 @@ public class GameWorld extends World
         healthP2 = 100;
         showHealthP1();
         showHealthP2();
+        setMusic();
     }
 
     /**
@@ -184,6 +185,13 @@ public class GameWorld extends World
     
     public void setMusic()
     {
+        GreenfootSound backgroundMusic = new GreenfootSound("SFIIsoundtrack" + ".mp3");
+        backgroundMusic.playLoop();
+        if (healthP1 <= 0 || healthP2 <=0)
+        {
+            System.out.println("hi");
+            backgroundMusic.stop();
+        }
     }
 
     /**
