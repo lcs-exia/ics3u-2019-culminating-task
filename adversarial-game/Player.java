@@ -45,6 +45,7 @@ public abstract class Player extends Collision
     private String jumpKey;
     private String punchKey;
     private String kickKey;
+    private String blockKey;
 
     // For walking animation
     private GreenfootImage walkingRightImages[];
@@ -76,8 +77,19 @@ public abstract class Player extends Collision
     // Keeps track of total number of kicking image frames (varies by character)
     int countOfKickingImages;
 
-    // Keeps track of what frame is curently being used in kicking animation
+    // Keeps track of what frame is currently being used in kicking animation
     private int kickingFrames;
+    
+    // For Blocking animation
+    private GreenfootImage blockingRightImages[];
+    private GreenfootImage blockingLeftImages[];
+    private static final int BLOCK_ANIMATION_DELAY = 8;
+    
+    // Keeps track of total number of blocking image frames (varies by character)
+    int countOfBlockingImages;
+    
+    // Keeps track of what frame is currently being used in blocking animation
+    private int blockingFrames;
 
     // Name of player images
     private String imageNamePrefix;
@@ -341,6 +353,7 @@ public abstract class Player extends Collision
                 world.showText("Scored a kick", 100, 100);
                 // Deal Damage that is increasing the lower health you are
                 ((GameWorld)getWorld()).setHealthP1(10 + (100-((GameWorld)getWorld()).healthP2)/10);
+                
             }
             else if (this.touch(Guile.class))
             {

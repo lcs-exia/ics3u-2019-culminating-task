@@ -16,7 +16,7 @@ public class Guile extends Player
     Guile(int startingX, String moveLeftWithKey, String moveRightWithKey, String jumpWithKey, String punchWithKey, String kickWithKey)
     {
         // Invoke the superclass constructor
-        super(startingX, "guile", 4, 3, 3, moveLeftWithKey, moveRightWithKey, jumpWithKey, punchWithKey, kickWithKey);
+        super(startingX, "guile", 4, 3, 2, moveLeftWithKey, moveRightWithKey, jumpWithKey, punchWithKey, kickWithKey);
     }
 
     /**
