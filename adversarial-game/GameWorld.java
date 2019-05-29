@@ -31,7 +31,7 @@ public class GameWorld extends World
     // Names of all the players
     // TO STUDENTS: Add to this list of constants if you wish to have additional player types
     public static final String PLAYER_GUILE = "guile";
-    public static final String PLAYER_VIGA = "viga";
+    public static final String PLAYER_viga = "viga";
 
     // Main player
     Player playerOne;
@@ -39,7 +39,10 @@ public class GameWorld extends World
 
     // Track whether game is on
     private boolean isGameOver;
-    
+
+    // Background music
+    GreenfootSound backgroundMusic;
+
     // Damage variable
     public int healthP1;
     public int healthP2;
@@ -63,7 +66,24 @@ public class GameWorld extends World
         healthP2 = 100;
         showHealthP1();
         showHealthP2();
-        setMusic();
+        // Load the sound file
+        backgroundMusic = new GreenfootSound("SFIIsoundtrack.mp3");
+        Greenfoot.start();
+    }
+
+    /**
+     * Happens when the Run button is pressed
+     */
+    public void started()
+    {
+        // play background music
+        backgroundMusic.play();
+    }
+
+    public void stopped()
+    {
+        // stop background music
+        backgroundMusic.stop();
     }
 
     /**
@@ -182,17 +202,6 @@ public class GameWorld extends World
     {
         return playerOne;
     }
-    
-    public void setMusic()
-    {
-        GreenfootSound backgroundMusic = new GreenfootSound("SFIIsoundtrack" + ".mp3");
-        backgroundMusic.playLoop();
-        if (healthP1 <= 0 || healthP2 <=0)
-        {
-            System.out.println("hi");
-            backgroundMusic.stop();
-        }
-    }
 
     /**
      * Set game over
@@ -201,6 +210,7 @@ public class GameWorld extends World
     {
         isGameOver = true;
     }
+
     /**
      * show health of player 1
      */
@@ -208,6 +218,7 @@ public class GameWorld extends World
     {
         showText("Health:" + healthP1, 100, 50);
     }
+
     /**
      * Track Damage of player 1
      */
@@ -223,6 +234,7 @@ public class GameWorld extends World
             Greenfoot.stop();
         }
     }
+
     /**
      * show health of player 2
      */
@@ -230,6 +242,7 @@ public class GameWorld extends World
     {
         showText("Health:" + healthP2, 500, 50);
     }
+
     /**
      * Track Damage of player 1
      */
@@ -244,7 +257,7 @@ public class GameWorld extends World
             showHealthP2();
             Greenfoot.stop();
         }
-        
+
     }
 }
 

@@ -355,6 +355,8 @@ public abstract class Player extends Collision
                 world.showText("Scored a punch", 100, 100);
                 // Deal Damage that is increasing the lower health you are
                 ((GameWorld)getWorld()).setHealthP1(10 + (100-((GameWorld)getWorld()).healthP2)/10);
+                // Play punch sound
+                Greenfoot.playSound("punch.mp3");
                 // set boolean for corresponding player to be true
                 wasPlayerOnePunched = true;
             }
@@ -363,6 +365,8 @@ public abstract class Player extends Collision
                 world.showText("", 100, 100);
                 // Deal Damage that is increasing the lower health you are
                 ((GameWorld)getWorld()).setHealthP2(10 + (100-((GameWorld)getWorld()).healthP1)/10);
+                // Play punch sound
+                Greenfoot.playSound("punch.mp3");
                 // set boolean for corresponding player to be true
                 wasPlayerTwoPunched = true;
             }
@@ -408,6 +412,8 @@ public abstract class Player extends Collision
                 world.showText("Scored a kick", 100, 100);
                 // Deal Damage that is increasing the lower health you are
                 ((GameWorld)getWorld()).setHealthP1(10 + (100-((GameWorld)getWorld()).healthP2)/10);
+                // Play kick sound
+                Greenfoot.playSound("kick.mp3");
                 // set boolean for corresponding player to be true
                 wasPlayerOneKicked = true;
             }
@@ -416,6 +422,8 @@ public abstract class Player extends Collision
                 world.showText("", 100, 100);
                 // Deal Damage that is increasing the lower health you are
                 ((GameWorld)getWorld()).setHealthP2(10 + (100-((GameWorld)getWorld()).healthP1)/10);
+                // Play kick sound
+                Greenfoot.playSound("kick.mp3");
                 // set boolean for corresponding player to be true
                 wasPlayerTwoKicked = true;
             }
@@ -604,7 +612,7 @@ public abstract class Player extends Collision
         setLocation(getX(), newYPosition);
 
         // Accelerate (fall faster next time)
-        deltaY = deltaY + acceleration;
+        deltaY = deltaY + acceleration/2;
     }
 
     /**
