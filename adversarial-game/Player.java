@@ -417,15 +417,17 @@ public abstract class Player extends Collision
                 // set boolean for corresponding player to be true
                 wasPlayerOneKicked = true;
             }
-            else if (this.touch(Guile.class))
+            if (this.touch(Guile.class))
             {
+                // set boolean for corresponding player to be true
+                System.out.println("About to set player 2 kicked");
+                wasPlayerTwoKicked = true;
                 world.showText("", 100, 100);
                 // Deal Damage that is increasing the lower health you are
                 ((GameWorld)getWorld()).setHealthP2(10 + (100-((GameWorld)getWorld()).healthP1)/10);
                 // Play kick sound
                 Greenfoot.playSound("kick.mp3");
-                // set boolean for corresponding player to be true
-                wasPlayerTwoKicked = true;
+                
             }
 
             // Start animation loop from beginning
@@ -452,13 +454,16 @@ public abstract class Player extends Collision
             setImage(imageNamePrefix + "-left-block-0.png");
         }
 
-        if (this.touch(Viga.class) && wasPlayerTwoKicked == true)
+        boolean touchingViga = this.touch(Viga.class);
+        System.out.println("Is touching Viga? " + touchingViga);
+        System.out.println("was p 2 kicked? " + wasPlayerTwoKicked);
+        if (touchingViga && wasPlayerTwoKicked)
         {
             //world.showText("blocked", 100, 100);
             // Deal less damage than usual
             ((GameWorld)getWorld()).setHealthP2(-8);
             // Set boolean back to false
-            wasPlayerTwoKicked = false;
+            //wasPlayerTwoKicked = false;
         }
         else if (this.touch(Guile.class) && wasPlayerOneKicked == true)
         {
@@ -466,7 +471,7 @@ public abstract class Player extends Collision
             // Deal less damage than usual
             ((GameWorld)getWorld()).setHealthP1(-8);
             // Set boolean back to false
-            wasPlayerOneKicked = false;
+            //wasPlayerOneKicked = false;
         } 
         else if (this.touch(Viga.class) && wasPlayerTwoPunched == true)
         {
